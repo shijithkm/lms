@@ -1,0 +1,55 @@
+<div class="main-container" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="center start">
+  <form [formGroup]="addBookForm">
+    <mat-card fxFlex="350px">
+      <mat-card-title>Add Books</mat-card-title>
+      <mat-card-subtitle>Search by isbn and add book</mat-card-subtitle>
+      <mat-card-content>
+        <div fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="start center">
+          <mat-form-field>
+            <input #isbn formControlName="isbn" matInput (keyup.enter)="getBookDetailsByIsbn(isbn.value)"
+              autocomplete="off" placeholder="Type ISBN">
+            <mat-hint>Eg. 9788184756654, 9789352140060, 9780330523509</mat-hint>
+          </mat-form-field>
+          <button (click)="getBookDetailsByIsbn(isbn.value)" matTooltip="Get book details" mat-mini-fab color="primary">
+            <i class="material-icons">
+              search
+            </i>
+          </button>
+        </div>
+
+
+        <mat-form-field>
+          <input matInput formControlName="title" autocomplete="off" placeholder="Title">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput formControlName="author" autocomplete="off" placeholder="Author">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput formControlName="rating" autocomplete="off" placeholder="Rating">
+        </mat-form-field>
+
+        <input type="hidden" formControlName="thumbnail">
+        <input type="hidden" formControlName="smallThumbnail">
+
+        <img width="150px" *ngIf="addBookForm?.value?.smallThumbnail" [src]="addBookForm?.value?.smallThumbnail">
+
+        <mat-form-field>
+          <input matInput formControlName="catogories" autocomplete="off" placeholder="Catogories">
+        </mat-form-field>
+
+        <mat-form-field>
+          <textarea matInput [matTextareaAutosize]="true" formControlName="description"
+            placeholder="Description"></textarea>
+        </mat-form-field>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button>RESET</button>
+        <button (click)="saveBook()"  mat-raised-button color="primary" [disabled]="!addBookForm.valid">SAVE</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+
+</div>
