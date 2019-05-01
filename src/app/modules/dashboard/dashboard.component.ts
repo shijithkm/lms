@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { ListDataSource } from '../books/list/list-datasource';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  books;
+
+  constructor(
+    private firebaseService: FirebaseService
+  ) { }
 
   ngOnInit() {
+    this.listBooks();
   }
+
+  listBooks() {
+    this.firebaseService.getBooks()
+      .subscribe((books) => {
+        this.books = books;
+      });
+  }
+
 
 }

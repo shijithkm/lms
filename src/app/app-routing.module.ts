@@ -20,7 +20,7 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'dashboard',
+        path: 'search',
         loadChildren: './modules/dashboard/dashboard.module#DashboardModule',
         data: {
           allowedRoles: ['user', 'admin'],
