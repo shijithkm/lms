@@ -15,66 +15,8 @@ export interface ListItem {
   smallThumbnail: string;
   categories: string[],
   isbn: string;
+  noOfBooks: number;
 }
-
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: ListItem[] = [
-  {
-    title: 'Goat Days',
-    author: 'Benyamin',
-    // tslint:disable-next-line: max-line-length
-    description: 'Najeeb’s dearest wish is to work in the Gulf and earn enough money to send back home. He achieves his dream only to be propelled by a series of incidents, grim and absurd, into a slave-like existence herding goats in the middle of the Saudi desert. Memories of the lush, verdant landscape of his village and of his loving family haunt Najeeb whose only solace is the companionship of goats. In the end, the lonely young man contrives a hazardous scheme to escape his desert prison. Goat Days was published to acclaim in Malayalam and became a bestseller. One of the brilliant new talents of Malayalam literature, Benyamin’s wry and tender telling transforms this strange and bitter comedy of Najeeb’s life in the desert into a universal tale of loneliness and alienation.',
-    rating: 3.5,
-    thumbnail: 'http://books.google.com/books/content?id=7alOQXMCx6cC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-    smallThumbnail: 'http://books.google.com/books/content?id=7alOQXMCx6cC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
-    categories: ['Fiction'],
-    isbn: '9788184756654'
-  },
-  {
-    title: 'Goat Days',
-    author: 'Benyamin',
-    // tslint:disable-next-line: max-line-length
-    description: 'Najeeb’s dearest wish is to work in the Gulf and earn enough money to send back home. He achieves his dream only to be propelled by a series of incidents, grim and absurd, into a slave-like existence herding goats in the middle of the Saudi desert. Memories of the lush, verdant landscape of his village and of his loving family haunt Najeeb whose only solace is the companionship of goats. In the end, the lonely young man contrives a hazardous scheme to escape his desert prison. Goat Days was published to acclaim in Malayalam and became a bestseller. One of the brilliant new talents of Malayalam literature, Benyamin’s wry and tender telling transforms this strange and bitter comedy of Najeeb’s life in the desert into a universal tale of loneliness and alienation.',
-    rating: 5,
-    thumbnail: 'http://books.google.com/books/content?id=7alOQXMCx6cC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-    smallThumbnail: 'http://books.google.com/books/content?id=7alOQXMCx6cC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
-    categories: ['Fiction'],
-    isbn: '9788184756654'
-  },
-  {
-    title: 'Goat Days',
-    author: 'Benyamin',
-    // tslint:disable-next-line: max-line-length
-    description: 'Najeeb’s dearest wish is to work in the Gulf and earn enough money to send back home. He achieves his dream only to be propelled by a series of incidents, grim and absurd, into a slave-like existence herding goats in the middle of the Saudi desert. Memories of the lush, verdant landscape of his village and of his loving family haunt Najeeb whose only solace is the companionship of goats. In the end, the lonely young man contrives a hazardous scheme to escape his desert prison. Goat Days was published to acclaim in Malayalam and became a bestseller. One of the brilliant new talents of Malayalam literature, Benyamin’s wry and tender telling transforms this strange and bitter comedy of Najeeb’s life in the desert into a universal tale of loneliness and alienation.',
-    rating: 1,
-    thumbnail: 'http://books.google.com/books/content?id=7alOQXMCx6cC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-    smallThumbnail: 'http://books.google.com/books/content?id=7alOQXMCx6cC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
-    categories: ['Fiction'],
-    isbn: '9788184756654'
-  },
-  {
-    title: 'Goat Days',
-    author: 'Benyamin',
-    // tslint:disable-next-line: max-line-length
-    description: 'Najeeb’s dearest wish is to work in the Gulf and earn enough money to send back home. He achieves his dream only to be propelled by a series of incidents, grim and absurd, into a slave-like existence herding goats in the middle of the Saudi desert. Memories of the lush, verdant landscape of his village and of his loving family haunt Najeeb whose only solace is the companionship of goats. In the end, the lonely young man contrives a hazardous scheme to escape his desert prison. Goat Days was published to acclaim in Malayalam and became a bestseller. One of the brilliant new talents of Malayalam literature, Benyamin’s wry and tender telling transforms this strange and bitter comedy of Najeeb’s life in the desert into a universal tale of loneliness and alienation.',
-    rating: 3,
-    thumbnail: 'http://books.google.com/books/content?id=7alOQXMCx6cC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-    smallThumbnail: 'http://books.google.com/books/content?id=7alOQXMCx6cC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
-    categories: ['Fiction'],
-    isbn: '9788184756654'
-  },
-  {
-    title: 'Goat Days',
-    author: 'Benyamin',
-    // tslint:disable-next-line: max-line-length
-    description: 'Najeeb’s dearest wish is to work in the Gulf and earn enough money to send back home. He achieves his dream only to be propelled by a series of incidents, grim and absurd, into a slave-like existence herding goats in the middle of the Saudi desert. Memories of the lush, verdant landscape of his village and of his loving family haunt Najeeb whose only solace is the companionship of goats. In the end, the lonely young man contrives a hazardous scheme to escape his desert prison. Goat Days was published to acclaim in Malayalam and became a bestseller. One of the brilliant new talents of Malayalam literature, Benyamin’s wry and tender telling transforms this strange and bitter comedy of Najeeb’s life in the desert into a universal tale of loneliness and alienation.',
-    rating: 4,
-    thumbnail: 'http://books.google.com/books/content?id=7alOQXMCx6cC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-    smallThumbnail: 'http://books.google.com/books/content?id=7alOQXMCx6cC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
-    categories: ['Fiction'],
-    isbn: '9788184756654'
-  }
-];
 
 /**
  * Data source for the List view. This class should
@@ -82,12 +24,12 @@ const EXAMPLE_DATA: ListItem[] = [
  * (including sorting, pagination, and filtering).
  */
 export class ListDataSource extends DataSource<Book> {
-  data: Book[] = EXAMPLE_DATA;
+  // data: Book[] = EXAMPLE_DATA;
 
   constructor(
     private paginator: MatPaginator,
     private sort: MatSort,
-    private firebaseService: FirebaseService) {
+    private data: Book[]) {
     super();
   }
 
@@ -97,7 +39,7 @@ export class ListDataSource extends DataSource<Book> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<ListItem[]> {
-    this.getBooks();
+
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
 
@@ -150,17 +92,6 @@ export class ListDataSource extends DataSource<Book> {
     });
   }
 
-
-  getBooks() {
-    this.firebaseService.getBooks().pipe(
-      map(changes =>
-        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-      )
-    ).subscribe(data => {
-      this.data = data;
-      console.log(this.data);
-    });
-  }
 }
 
 /** Simple sort comparator for example ID/Name columns (for client-side sorting). */

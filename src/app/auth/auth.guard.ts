@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     // Check the user is authorized to access this page else redirect to access denied page 
     if (this.authService.isUserLoggedIn()) {
       const allowedRoles = next.data.allowedRoles;
-      this.authService.isAuthorized(allowedRoles, url);
+      this.authService.isAuthorized({ allowedRoles, url });
     }
     return this.checkLogin(url);
   }

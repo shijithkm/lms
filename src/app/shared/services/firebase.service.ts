@@ -18,19 +18,29 @@ export class FirebaseService {
     this.usersList = this.db.list('users');
   }
   public getBooks() {
-    return this.booksList.snapshotChanges();
+    return this.booksList.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    )
   }
+
   addBook(book: Book) {
     return this.booksList.push(book);
   }
-  updateBook(key: string) {
-    this.booksList.update(key, {
-      title: 'title updated',
-      description: 'desc updated'
+
+  updateBook(key: string, book: Book) {
+    return this.booksList.update(key, {
+      title: book.title,
+      description: book.description,
+      categories: book.categories,
+      noOfBooks: book.noOfBooks,
+      author: book.author,
     });
   }
+
   deleteBook(key: string) {
-    this.booksList.remove(key);
+    return this.booksList.remove(key);
   }
   // 9781451648546
   SearchByISBN(isbn) {

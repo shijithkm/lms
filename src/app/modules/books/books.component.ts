@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
 @Component({
   selector: 'app-books',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BooksComponent implements OnInit {
 
-  constructor() { }
+  bookCount: number;
+
+  constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit() {
+
+    this.bookCount = 0;
+
+    this.firebaseService.getBooks()
+      .subscribe((data) => {
+        this.bookCount = data.length;
+      });
   }
 
 }

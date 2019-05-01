@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', component: BooksComponent },
   { path: 'list', component: ListComponent },
   { path: 'add', component: AddComponent },
-  { path: 'edit', component: AddComponent },
+  { path: 'edit/:key', component: AddComponent },
 ];
 
 @NgModule({

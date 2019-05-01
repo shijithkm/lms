@@ -7,4 +7,5 @@ export interface Book {
     thumbnail: string;
     smallThumbnail: string;
     categories: string[];
+    noOfBooks: number;
 }

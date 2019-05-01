@@ -26,7 +26,7 @@ export class AuthService {
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
-  isAuthorized(allowedRoles: string[], url: string): boolean {
+  isAuthorized({ allowedRoles, url = '/' }: { allowedRoles: string[]; url?: string; }): boolean {
 
     this.redirectUrl = url;
 
@@ -55,6 +55,9 @@ export class AuthService {
         this.firebaseService.addUser(this.user);
         // Redirect to based on requested url when authentication success 
         console.log('redirectUrl', this.redirectUrl);
+
+        this.redirectUrl = this.redirectUrl || '/';
+        
         this.router.navigate([this.redirectUrl]);
       })
       .catch(e => console.log(e));
