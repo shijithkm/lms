@@ -32,8 +32,8 @@ export class DashboardService {
     this.myFavorites.splice(index, 1);
   }
 
-
   isBookAddedToMyFavorites(book) {
     return this.myFavorites.includes(book);
   }
+
 }

@@ -20,6 +20,7 @@ export class CartComponent implements OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['action', 'isbn', 'title', 'author', 'rating', 'smallThumbnail', 'categories', 'noOfBooks'];
+  issedBooks: any[] = [];
 
   constructor(
     private dashboardService: DashboardService,
@@ -54,6 +55,14 @@ export class CartComponent implements OnInit {
     this.listBooks();
 
   }
+
+  issueBooks() {
+    this.issedBooks.push(this.dashboardService.cart);
+    this.dashboardService.cart = [];
+    this.listBooks();
+    this.router.navigate(['/']);
+  }
+
 
 }
 
