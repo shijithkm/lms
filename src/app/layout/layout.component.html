@@ -5,6 +5,8 @@
     <mat-toolbar>LMS</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/search" [routerLinkActive]="['active']">Search Books</a>
+      <a mat-list-item routerLink="/cart" [routerLinkActive]="['active']">My Cart</a>
+      <a mat-list-item routerLink="/issued" [routerLinkActive]="['active']">Issued Books</a>
       <a mat-list-item routerLink="/admin/books" [routerLinkActive]="['active']">Manage Books</a>
       <a mat-list-item routerLink="/admin/users" [routerLinkActive]="['active']">Manage User</a>
       <a mat-list-item (click)="this.authService.signOut()" [routerLinkActive]="['active']"> Logout </a>

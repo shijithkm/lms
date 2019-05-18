@@ -33,6 +33,13 @@ const routes: Routes = [
         data: {
           allowedRoles: ['user', 'admin'],
         },
+      },
+      {
+        path: 'issued',
+        loadChildren: './modules/issued/issued.module#IssuedModule',
+        data: {
+          allowedRoles: ['user', 'admin'],
+        },
       }
     ]
   },
