@@ -2,8 +2,8 @@
   <div class="card-container" fxLayoutGap="10px" fxLayout="row wrap" fxLayoutAlign="start start">
     <mat-card class="card" *ngFor="let book of books">
       <mat-card-header>
-        <mat-card-title>{{ book.title }}</mat-card-title>
-        <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+        <mat-card-title><h3>{{ book.title }}</h3></mat-card-title>
+        <mat-card-subtitle><h4>{{ book.author }}</h4></mat-card-subtitle>
       </mat-card-header>
       <span></span>
       <img mat-card-image src="{{ book.smallThumbnail }}" alt="Photo of a Shiba Inu">
@@ -12,9 +12,11 @@
           {{ (book.description.length > 250)? (book.description | slice:0:250)+'..':(book.description) }}
         </p>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
+      <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-icon-button *ngIf="!dashboardService.isBookAddedToMyFavorites(book)" (click)="dashboardService.addToMyFavorites(book)"  matTooltip="Mark as Favorite"><mat-icon>favorite_border</mat-icon></button>
+        <button mat-icon-button color="warn" *ngIf="dashboardService.isBookAddedToMyFavorites(book)" (click)="dashboardService.removeMyFavorites(book)"  matTooltip="My Favorite Book"><mat-icon>favorite</mat-icon></button>
+        <button mat-raised-button color="warn" *ngIf="!dashboardService.isBookAddedToCart(book)" (click)="dashboardService.addToCart(book)">Add to Cart</button>
+        <button mat-raised-button color="primary" *ngIf="dashboardService.isBookAddedToCart(book)">Added to Cart</button>
       </mat-card-actions>
     </mat-card>
   </div>

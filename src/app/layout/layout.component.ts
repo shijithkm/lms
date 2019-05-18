@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
+import { DashboardService } from '../modules/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-layout',
@@ -16,6 +17,10 @@ export class LayoutComponent {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService) { }
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    public authService: AuthService,
+    public dashboardService: DashboardService
+  ) { }
 
 }

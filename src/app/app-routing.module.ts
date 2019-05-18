@@ -5,7 +5,7 @@ import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
-    path: '', pathMatch: 'full', redirectTo: 'dashboard'
+    path: '', pathMatch: 'full', redirectTo: 'search'
   },
   {
     path: 'login',
@@ -26,6 +26,13 @@ const routes: Routes = [
           allowedRoles: ['user', 'admin'],
         },
 
+      },
+      {
+        path: 'cart',
+        loadChildren: './modules/cart/cart.module#CartModule',
+        data: {
+          allowedRoles: ['user', 'admin'],
+        },
       }
     ]
   },
