@@ -20,7 +20,12 @@ export class DashboardService {
   }
 
   isBookAddedToCart(book) {
-    return this.cart.includes(book);
+
+    const result = this.cart.find(obj => {
+      return obj.key === book.key;
+    });
+    return result;
+
   }
 
   addToMyFavorites(book) {
@@ -33,7 +38,10 @@ export class DashboardService {
   }
 
   isBookAddedToMyFavorites(book) {
-    return this.myFavorites.includes(book);
+    const result = this.myFavorites.find(obj => {
+      return (obj.key === book.key && obj.userId === JSON.parse(localStorage.currentUser).id);
+    });
+    return result;
   }
 
 }
