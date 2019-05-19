@@ -18,7 +18,7 @@ export class ListComponent implements OnInit {
   dataSource: ListDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['action', 'isbn', 'title', 'author', 'rating', 'smallThumbnail', 'categories', 'noOfBooks'];
+  displayedColumns = ['action', 'isbn', 'title', 'author', 'rating', 'smallThumbnail', 'categories', 'noOfBooks', 'location'];
 
   constructor(
     private bookService: BooksService,

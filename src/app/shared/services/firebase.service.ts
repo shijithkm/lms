@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { User } from '../../models/user.model';
 import { Book } from 'src/app/models/book.model';
-import { log } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +16,7 @@ export class FirebaseService {
   issued: AngularFireList<any>;
   cart: AngularFireList<any>;
   userId: string;
+  returnedDays: number;
 
   constructor(private db: AngularFireDatabase, private http: HttpClient) {
     this.booksList = this.db.list('books');
@@ -25,6 +25,7 @@ export class FirebaseService {
     this.issued = this.db.list('issued');
     this.cart = this.db.list('cart');
     this.userId = JSON.parse(localStorage.currentUser).id;
+    this.returnedDays = 5;
   }
   public getBooks() {
     return this.booksList.snapshotChanges().pipe(
@@ -35,6 +36,7 @@ export class FirebaseService {
   }
 
   addBook(book: Book) {
+    book.availableBooks = book.noOfBooks;
     return this.booksList.push(book);
   }
 
@@ -45,6 +47,15 @@ export class FirebaseService {
       categories: book.categories,
       noOfBooks: book.noOfBooks,
       author: book.author,
+      location: book.location,
+    });
+
+  }
+
+  updateBookAvailable(key: string, book: Book) {
+    const availableBooks = book.availableBooks === null ? book.availableBooks : book.noOfBooks - 1;
+    return this.booksList.update(key, {
+      availableBooks
     });
   }
 
@@ -78,6 +89,8 @@ export class FirebaseService {
    */
 
   addToCart(book: Book) {
+    book.userId = this.userId;
+    book.userId_key = this.userId + '_' + book.key;
     return this.cart.push(book);
   }
 
@@ -99,11 +112,26 @@ export class FirebaseService {
     );
   }
 
+
+  clearMyCart() {
+    return this.cart.query
+      .orderByChild('userId')
+      .equalTo(this.userId)
+      .once('value', (snapshot) => {
+        const keys = Object.keys(snapshot.val());
+        console.log(keys);
+        keys.forEach(key => {
+          return this.cart.remove(key);
+        });
+      });
+  }
+
+
   /**
    * Favorite
    */
   addToFavorite(book: Book) {
-    book.userId = JSON.parse(localStorage.currentUser).id;
+    book.userId = this.userId;
     book.userId_key = this.userId + '_' + book.key;
     return this.favorites.push(book);
   }
@@ -126,5 +154,25 @@ export class FirebaseService {
         return this.favorites.remove(key);
       });
   }
+
+  /**
+  * Issued
+  */
+
+  addToIssued(books: Book[]) {
+    const issuedBooks: Book[] = [];
+    books.forEach(e => {
+      e.userId = this.userId;
+      e.userId_key = this.userId + '_' + e.key;
+      e.issuedDate = new Date().toDateString();
+      e.returnedDate = new Date(new Date().setDate(new Date().getDate() + 5)).toDateString();
+      this.issued.push(e);
+    });
+    return this.issued.push(issuedBooks);
+  }
+
+
+
+
 
 }

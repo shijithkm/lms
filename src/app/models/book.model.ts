@@ -11,4 +11,8 @@ export interface Book {
   smallThumbnail: string;
   categories: string[];
   noOfBooks: number;
+  availableBooks: number;
+  issuedDate: string;
+  returnedDate: string;
+  location: string;
 }

@@ -42,7 +42,8 @@ export class AddComponent implements OnInit {
         smallThumbnail: [this.defaultThumbnail],
         categories: [''],
         description: [''],
-        noOfBooks: ['']
+        noOfBooks: [''],
+        location: [''],
       });
 
     } else {
@@ -55,7 +56,8 @@ export class AddComponent implements OnInit {
         smallThumbnail: [this.booksService.book.smallThumbnail],
         categories: [this.booksService.book.categories],
         description: [this.booksService.book.description],
-        noOfBooks: [this.booksService.book.noOfBooks]
+        noOfBooks: [this.booksService.book.noOfBooks],
+        location: [this.booksService.book.location]
       });
     }
 
@@ -77,6 +79,7 @@ export class AddComponent implements OnInit {
           thumbnail: book.items[0].volumeInfo.imageLinks.thumbnail,
           categories: book.items[0].volumeInfo.categories[0],
           description: book.items[0].volumeInfo.description,
+          location: book.items[0].volumeInfo.location,
           noOfBooks: 1, // Set Default Value
         });
       });

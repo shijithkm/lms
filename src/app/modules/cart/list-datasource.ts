@@ -5,19 +5,6 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 import { Book } from 'src/app/models/book.model';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
-// TODO: Replace this with your own data model type
-export interface ListItem {
-  title: string;
-  author: string;
-  description: string;
-  rating: number;
-  thumbnail: string;
-  smallThumbnail: string;
-  categories: string[],
-  isbn: string;
-  noOfBooks: number;
-}
-
 /**
  * Data source for the List view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
@@ -38,7 +25,7 @@ export class ListDataSource extends DataSource<Book> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<ListItem[]> {
+  connect(): Observable<Book[]> {
 
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
@@ -68,7 +55,7 @@ export class ListDataSource extends DataSource<Book> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: ListItem[]) {
+  private getPagedData(data: Book[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -77,7 +64,7 @@ export class ListDataSource extends DataSource<Book> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: ListItem[]) {
+  private getSortedData(data: Book[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

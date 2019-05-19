@@ -41,24 +41,24 @@ export class CartComponent implements OnInit {
   }
 
   deleteBook(book: Book) {
-    // this.firebaseService.deleteBook(key)
-    //   .then(e => {
-    //     this.globalService.openSnackBar('Book has been deleted succssfully!', 'OK');
-    //   })
-    //   .catch(e => {
-    //     this.globalService.openSnackBar('Error, Please try after sometime!', 'OK');
-    //   });
-
     this.dashboardService.removeFromCart(book);
     this.listBooks();
-
   }
 
   issueBooks() {
-    this.issedBooks.push(this.dashboardService.cart);
-    this.dashboardService.cart = [];
-    this.listBooks();
-    this.router.navigate(['/']);
+    this.firebaseService.addToIssued(this.dashboardService.cart)
+      .then(r => {
+        this.globalService.openSnackBar('Book has been issued succssfully!', 'OK');
+
+        this.dashboardService.cart.forEach((e) => {
+          this.firebaseService.updateBookAvailable(e.key, e);
+        });
+
+        this.firebaseService.clearMyCart();
+        this.listBooks();
+        this.router.navigate(['/']);
+      })
+      .catch(e => { this.globalService.openSnackBar('Error, Please try after sometime!', 'OK'); });
   }
 
 
