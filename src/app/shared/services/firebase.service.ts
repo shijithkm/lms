@@ -52,10 +52,44 @@ export class FirebaseService {
 
   }
 
-  updateBookAvailable(key: string, book: Book) {
-    const availableBooks = book.availableBooks === null ? book.availableBooks : book.noOfBooks - 1;
-    return this.booksList.update(key, {
-      availableBooks
+  async updateBookAvailable(key: string, book: Book) {
+
+    this.booksList.query
+      .orderByChild('isbn')
+      .equalTo(book.isbn)
+      .once('value', (snapshot) => {
+        const result: any = Object.values(snapshot.val());
+        const availableBooks = result[0].availableBooks - 1;
+        this.booksList.update(key, {
+          availableBooks
+        });
+      });
+  }
+
+  returnBook(book: Book) {
+
+    // Update Available Books 
+    this.booksList.query
+      .orderByChild('isbn')
+      .equalTo(book.isbn)
+      .once('value', (snapshot) => {
+        const result: any = Object.values(snapshot.val());
+        const availableBooks = result[0].availableBooks + 1;
+        this.booksList.update(book.bookId, {
+          availableBooks
+        });
+      });
+
+    return this.issued.update(book.key, {
+      status: 'RETURNED'
+    });
+
+  }
+
+  renewBook(book: Book) {
+    return this.issued.update(book.key, {
+      status: 'RENEWED',
+      returnedDate: new Date(new Date().setDate(new Date().getDate() + this.returnedDays)).toDateString()
     });
   }
 
@@ -89,13 +123,25 @@ export class FirebaseService {
    */
 
   addToCart(book: Book) {
-    book.userId = this.userId;
-    book.userId_key = this.userId + '_' + book.key;
-    return this.cart.push(book);
+    let data: any = {};
+    data.title = book.title;
+    data.thumbnail = book.thumbnail;
+    data.smallThumbnail = book.smallThumbnail;
+    data.isbn = book.isbn;
+    data.categories = book.categories;
+    data.author = book.author;
+    data.userId = this.userId;
+    data.bookId = book.key;
+    data.userId_key = this.userId + '_' + book.key;
+    return this.cart.push(data);
   }
 
-  isBookAddedToCart(key: string) {
-    this.cart.query.orderByChild('key').equalTo(key).on('value', (snapshot) => {
+  removeFromCart(key: string) {
+    return this.cart.remove(key);
+  }
+
+  isBookAddedToCart(userId_key: string) {
+    this.cart.query.orderByChild('userId_key').equalTo(userId_key).on('value', (snapshot) => {
       if (snapshot.val() === null) {
         return false;
       } else {
@@ -160,15 +206,33 @@ export class FirebaseService {
   */
 
   addToIssued(books: Book[]) {
-    const issuedBooks: Book[] = [];
-    books.forEach(e => {
-      e.userId = this.userId;
-      e.userId_key = this.userId + '_' + e.key;
-      e.issuedDate = new Date().toDateString();
-      e.returnedDate = new Date(new Date().setDate(new Date().getDate() + 5)).toDateString();
-      this.issued.push(e);
+
+
+    return new Promise((resolve, reject) => {
+
+      books.forEach(e => {
+        const data: any = {};
+        data.title = e.title;
+        data.thumbnail = e.thumbnail;
+        data.smallThumbnail = e.smallThumbnail;
+        data.isbn = e.isbn;
+        data.categories = e.categories;
+        data.author = e.author;
+        data.userId = e.userId;
+        data.bookId = e.bookId;
+        data.userId_key = e.userId_key;
+        data.status = 'ISSUED';
+        data.issuedDate = new Date().toDateString();
+        data.returnedDate = new Date(new Date().setDate(new Date().getDate() + this.returnedDays)).toDateString();
+
+        this.issued.push(data);
+
+      });
+
+      resolve(true);
+
     });
-    return this.issued.push(issuedBooks);
+
   }
 
 

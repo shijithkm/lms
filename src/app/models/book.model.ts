@@ -1,6 +1,7 @@
 export interface Book {
   userId_key: string;
   key: string;
+  bookId: string;
   userId: string;
   isbn: string;
   title: string;
@@ -15,4 +16,5 @@ export interface Book {
   issuedDate: string;
   returnedDate: string;
   location: string;
+  status: string;
 }

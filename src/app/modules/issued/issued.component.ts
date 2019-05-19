@@ -29,15 +29,26 @@ export class IssuedComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listBooks();
+    this.listIssuedBooks();
   }
 
-  listBooks() {
+  listIssuedBooks() {
     this.firebaseService.getMyIssuedBooks()
       .subscribe((data) => {
         console.log(data);
         this.dataSource = new ListDataSource(this.paginator, this.sort, data);
       });
+  }
+  renewBook(row: Book) {
+    this.firebaseService.renewBook(row)
+      .then(r => { this.globalService.openSnackBar('Book has been returned succssfully!', 'OK'); })
+      .catch(e => { this.globalService.openSnackBar('Error, Please try after sometime!', 'OK'); });
+  }
+
+  returnBook(row: Book) {
+    this.firebaseService.returnBook(row)
+      .then(r => { this.globalService.openSnackBar('Book has been returned succssfully!', 'OK'); })
+      .catch(e => { this.globalService.openSnackBar('Error, Please try after sometime!', 'OK'); });
   }
 
 }

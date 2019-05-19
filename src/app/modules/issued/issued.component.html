@@ -4,14 +4,19 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let row">
-        <button matTooltip="Renew Book" (click)="renewBook(row)" color="primary" mat-icon-button
-          aria-label="Renew Book">
-          <mat-icon>autorenew</mat-icon>
-        </button>
-        <button matTooltip="Return Book" (click)="renewBook(row)" color="primary" mat-icon-button
-          aria-label="Delete icon for delete a book">
-          <mat-icon>keyboard_return</mat-icon>
-        </button>
+        <span *ngIf="row.status !== 'RETURNED'">
+          <button matTooltip="Renew Book" (click)="renewBook(row)" color="primary" mat-icon-button
+            aria-label="Renew Book">
+            <mat-icon>autorenew</mat-icon>
+          </button>
+          <button matTooltip="Return Book" (click)="returnBook(row)" color="primary" mat-icon-button
+            aria-label="Delete icon for delete a book">
+            <mat-icon>keyboard_return</mat-icon>
+          </button>
+        </span>
+        <span *ngIf="row.status === 'RETURNED'">
+          Returned
+        </span>
       </td>
     </ng-container>
 

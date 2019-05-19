@@ -19,7 +19,7 @@ export class CartComponent implements OnInit {
   dataSource: ListDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['action', 'isbn', 'title', 'author', 'rating', 'smallThumbnail', 'categories', 'noOfBooks'];
+  displayedColumns = ['action', 'title', 'author', 'smallThumbnail', 'categories'];
   issedBooks: any[] = [];
 
   constructor(
@@ -37,12 +37,17 @@ export class CartComponent implements OnInit {
     this.firebaseService.getCart()
       .subscribe((data) => {
         this.dataSource = new ListDataSource(this.paginator, this.sort, data);
+        this.dashboardService.cart = data;
       });
   }
 
-  deleteBook(book: Book) {
-    this.dashboardService.removeFromCart(book);
-    this.listBooks();
+  deleteBook(key: string) {
+    this.firebaseService.removeFromCart(key)
+      .then(r => {
+        this.globalService.openSnackBar('Book has been removed from cart successfully!', 'OK');
+        this.listBooks();
+      })
+      .catch(e => { this.globalService.openSnackBar('Error, Please try after sometime!', 'OK'); });
   }
 
   issueBooks() {
@@ -51,14 +56,14 @@ export class CartComponent implements OnInit {
         this.globalService.openSnackBar('Book has been issued succssfully!', 'OK');
 
         this.dashboardService.cart.forEach((e) => {
-          this.firebaseService.updateBookAvailable(e.key, e);
+          this.firebaseService.updateBookAvailable(e.bookId, e);
         });
 
         this.firebaseService.clearMyCart();
         this.listBooks();
         this.router.navigate(['/']);
       })
-      .catch(e => { this.globalService.openSnackBar('Error, Please try after sometime!', 'OK'); });
+      .catch(e => { console.log(e); this.globalService.openSnackBar('Error, Please try after sometime!', 'OK'); });
   }
 
 
