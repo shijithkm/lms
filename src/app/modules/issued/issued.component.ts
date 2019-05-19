@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort } from '@angular/material';
+import { ListDataSource } from './list-datasource';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { Router } from '@angular/router';
+import { GlobalService } from 'src/app/shared/services/global.service';
+import { DashboardService } from '../dashboard/dashboard.service';
+import { Book } from 'src/app/models/book.model';
 
 @Component({
   selector: 'app-issued',
@@ -6,10 +13,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./issued.component.scss']
 })
 export class IssuedComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  dataSource: ListDataSource;
 
-  constructor() { }
+  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  displayedColumns = ['action', 'title', 'smallThumbnail', 'issuedDate', 'returnedDate'];
+  issedBooks: any[] = [];
+
+  constructor(
+    private dashboardService: DashboardService,
+    private router: Router,
+    private globalService: GlobalService,
+    private firebaseService: FirebaseService) {
+  }
 
   ngOnInit() {
+    this.listBooks();
+  }
+
+  listBooks() {
+    this.firebaseService.getMyIssuedBooks()
+      .subscribe((data) => {
+        console.log(data);
+        this.dataSource = new ListDataSource(this.paginator, this.sort, data);
+      });
   }
 
 }
+

@@ -172,7 +172,11 @@ export class FirebaseService {
   }
 
 
-
-
-
+  getMyIssuedBooks() {
+    return this.issued.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    );
+  }
 }
