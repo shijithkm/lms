@@ -8,7 +8,6 @@
       <a mat-list-item routerLink="/cart" [routerLinkActive]="['active']">My Cart</a>
       <a mat-list-item routerLink="/issued" [routerLinkActive]="['active']">Issued Books</a>
       <a mat-list-item routerLink="/admin/books" [routerLinkActive]="['active']">Manage Books</a>
-      <a mat-list-item routerLink="/admin/users" [routerLinkActive]="['active']">Manage User</a>
       <a mat-list-item (click)="this.authService.signOut()" [routerLinkActive]="['active']"> Logout </a>
     </mat-nav-list>
   </mat-sidenav>
@@ -20,13 +19,14 @@
       </button>
 
       <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
-        <span>Search Books</span>
+        <span>{{ dashboardService.title }}</span>
         <span>
-          <button mat-icon-button >
+          <button mat-icon-button>
             <mat-icon aria-label="Filter">filter_list</mat-icon>
           </button>
           <button mat-icon-button routerLink="/cart">
-            <mat-icon matBadge="{{ dashboardService.cart.length }}" matBadgeColor="warn" aria-label="Shopping Cart">shopping_cart</mat-icon>
+            <mat-icon matBadge="{{ dashboardService.cart.length }}" matBadgeColor="warn" aria-label="Shopping Cart">
+              shopping_cart</mat-icon>
           </button>
         </span>
       </div>

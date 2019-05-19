@@ -23,6 +23,7 @@ const routes: Routes = [
         path: 'search',
         loadChildren: './modules/dashboard/dashboard.module#DashboardModule',
         data: {
+          title: 'Search Books',
           allowedRoles: ['user', 'admin'],
         },
 
@@ -31,6 +32,7 @@ const routes: Routes = [
         path: 'cart',
         loadChildren: './modules/cart/cart.module#CartModule',
         data: {
+          title: 'My Cart',
           allowedRoles: ['user', 'admin'],
         },
       },
@@ -38,6 +40,7 @@ const routes: Routes = [
         path: 'issued',
         loadChildren: './modules/issued/issued.module#IssuedModule',
         data: {
+          title: 'Issused Books',
           allowedRoles: ['user', 'admin'],
         },
       }
@@ -54,10 +57,18 @@ const routes: Routes = [
       {
         path: 'books',
         loadChildren: './modules/books/books.module#BooksModule',
+        data: {
+          title: 'Manage Books',
+          allowedRoles: ['admin', 'user'],
+        },
       },
       {
         path: 'users',
         loadChildren: './modules/books/books.module#BooksModule',
+        data: {
+          title: 'Manage Users',
+          allowedRoles: ['admin', 'user'],
+        },
       }
     ]
   },

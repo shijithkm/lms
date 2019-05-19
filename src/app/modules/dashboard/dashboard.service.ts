@@ -8,8 +8,9 @@ export class DashboardService {
   cart: any[] = [];
   myFavorites: any[] = [];
   userId: string;
-
-  constructor() { 
+  title: string;
+  
+  constructor() {
     this.userId = JSON.parse(localStorage.currentUser).id;
   }
 

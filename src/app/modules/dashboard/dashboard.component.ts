@@ -3,6 +3,7 @@ import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { ListDataSource } from '../books/list/list-datasource';
 import { DashboardService } from './dashboard.service';
 import { GlobalService } from 'src/app/shared/services/global.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,13 +17,17 @@ export class DashboardComponent implements OnInit {
   constructor(
     public firebaseService: FirebaseService,
     public dashboardService: DashboardService,
-    private globalService: GlobalService
-  ) { }
+    private globalService: GlobalService,
+    private route: ActivatedRoute
+  ) {
+
+  }
 
   ngOnInit() {
     this.listBooks();
     this.getCart();
     this.getFavorites();
+    this.dashboardService.title = this.route.snapshot.data.title;
   }
 
   listBooks() {

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { ListDataSource } from './list-datasource';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalService } from 'src/app/shared/services/global.service';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { Book } from 'src/app/models/book.model';
@@ -22,6 +22,7 @@ export class IssuedComponent implements OnInit {
   issedBooks: any[] = [];
 
   constructor(
+    private route: ActivatedRoute,
     private dashboardService: DashboardService,
     private router: Router,
     private globalService: GlobalService,
@@ -30,6 +31,7 @@ export class IssuedComponent implements OnInit {
 
   ngOnInit() {
     this.listIssuedBooks();
+    this.dashboardService.title = this.route.snapshot.data.title;
   }
 
   listIssuedBooks() {
