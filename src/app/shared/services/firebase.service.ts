@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { User } from '../../models/user.model';
 import { Book } from 'src/app/models/book.model';
+import { log } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -103,6 +104,7 @@ export class FirebaseService {
    */
   addToFavorite(book: Book) {
     book.userId = JSON.parse(localStorage.currentUser).id;
+    book.userId_key = this.userId + '_' + book.key;
     return this.favorites.push(book);
   }
 
@@ -114,8 +116,15 @@ export class FirebaseService {
     );
   }
 
-  removeMyFavorites(key) {
-    return this.favorites.remove(key);
+  removeMyFavorites(book: Book) {
+    const userId_key = this.userId + '_' + book.key;
+    return this.favorites.query.orderByChild('userId_key')
+      .equalTo(userId_key)
+      .once('value', (snapshot) => {
+        const keys = Object.keys(snapshot.val());
+        const key = keys[0];
+        return this.favorites.remove(key);
+      });
   }
 
 }

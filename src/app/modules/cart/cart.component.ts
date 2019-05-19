@@ -34,12 +34,10 @@ export class CartComponent implements OnInit {
   }
 
   listBooks() {
-    // this.firebaseService.getBooks()
-    //   .subscribe((data) => {
-    //     this.dataSource = new ListDataSource(this.paginator, this.sort, data);
-    //   });
-
-    this.dataSource = new ListDataSource(this.paginator, this.sort, this.dashboardService.cart);
+    this.firebaseService.getCart()
+      .subscribe((data) => {
+        this.dataSource = new ListDataSource(this.paginator, this.sort, data);
+      });
   }
 
   deleteBook(book: Book) {

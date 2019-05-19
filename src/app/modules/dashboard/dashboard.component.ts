@@ -55,7 +55,9 @@ export class DashboardComponent implements OnInit {
   }
 
   removeMyFavorites(book) {
-    this.firebaseService.removeMyFavorites(book);
+    this.firebaseService.removeMyFavorites(book)
+    .then(r => { this.globalService.openSnackBar('Book has been removed from favorites succssfully!', 'OK'); })
+    .catch(e => { this.globalService.openSnackBar('Error, Please try after sometime!', 'OK'); });
   }
 
 }
