@@ -1,5 +1,5 @@
 export interface Book {
-  userId_key: string;
+  userIdKey: string;
   key: string;
   bookId: string;
   userId: string;

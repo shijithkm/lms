@@ -68,7 +68,7 @@ export class FirebaseService {
 
   returnBook(book: Book) {
 
-    // Update Available Books 
+    // Update Available Books
     this.booksList.query
       .orderByChild('isbn')
       .equalTo(book.isbn)
@@ -123,7 +123,7 @@ export class FirebaseService {
    */
 
   addToCart(book: Book) {
-    let data: any = {};
+    const data: any = {};
     data.title = book.title;
     data.thumbnail = book.thumbnail;
     data.smallThumbnail = book.smallThumbnail;
@@ -132,7 +132,7 @@ export class FirebaseService {
     data.author = book.author;
     data.userId = this.userId;
     data.bookId = book.key;
-    data.userId_key = this.userId + '_' + book.key;
+    data.userIdKey = this.userId + '_' + book.key;
     return this.cart.push(data);
   }
 
@@ -140,8 +140,8 @@ export class FirebaseService {
     return this.cart.remove(key);
   }
 
-  isBookAddedToCart(userId_key: string) {
-    this.cart.query.orderByChild('userId_key').equalTo(userId_key).on('value', (snapshot) => {
+  isBookAddedToCart(userIdKey: string) {
+    this.cart.query.orderByChild('userIdKey').equalTo(userIdKey).on('value', (snapshot) => {
       if (snapshot.val() === null) {
         return false;
       } else {
@@ -178,7 +178,7 @@ export class FirebaseService {
    */
   addToFavorite(book: Book) {
     book.userId = this.userId;
-    book.userId_key = this.userId + '_' + book.key;
+    book.userIdKey = this.userId + '_' + book.key;
     return this.favorites.push(book);
   }
 
@@ -191,9 +191,9 @@ export class FirebaseService {
   }
 
   removeMyFavorites(book: Book) {
-    const userId_key = this.userId + '_' + book.key;
-    return this.favorites.query.orderByChild('userId_key')
-      .equalTo(userId_key)
+    const userIdKey = this.userId + '_' + book.key;
+    return this.favorites.query.orderByChild('userIdKey')
+      .equalTo(userIdKey)
       .once('value', (snapshot) => {
         const keys = Object.keys(snapshot.val());
         const key = keys[0];
@@ -201,15 +201,10 @@ export class FirebaseService {
       });
   }
 
-  /**
-  * Issued
-  */
+  /** ISSUED */
 
   addToIssued(books: Book[]) {
-
-
     return new Promise((resolve, reject) => {
-
       books.forEach(e => {
         const data: any = {};
         data.title = e.title;
@@ -220,7 +215,7 @@ export class FirebaseService {
         data.author = e.author;
         data.userId = e.userId;
         data.bookId = e.bookId;
-        data.userId_key = e.userId_key;
+        data.userIdKey = e.userIdKey;
         data.status = 'ISSUED';
         data.issuedDate = new Date().toDateString();
         data.returnedDate = new Date(new Date().setDate(new Date().getDate() + this.returnedDays)).toDateString();

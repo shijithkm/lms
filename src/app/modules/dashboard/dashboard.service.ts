@@ -9,7 +9,6 @@ export class DashboardService {
   myFavorites: any[] = [];
   userId: string;
   title: string;
-  
   constructor() {
     this.userId = JSON.parse(localStorage.currentUser).id;
   }
@@ -24,9 +23,9 @@ export class DashboardService {
   }
 
   isBookAddedToCart(book) {
-    const userId_key = this.userId + '_' + book.key;
+    const userIdKey = this.userId + '_' + book.key;
     const result = this.cart.find(obj => {
-      return obj.userId_key === userId_key;
+      return obj.userIdKey === userIdKey;
     });
     return result;
   }

@@ -45,12 +45,12 @@ export class DashboardComponent implements OnInit {
 
   getCart() {
     this.firebaseService.getCart()
-      .subscribe(r => { this.dashboardService.cart = r; })
+      .subscribe(r => { this.dashboardService.cart = r; });
   }
 
   getFavorites() {
     this.firebaseService.getMyFavorites()
-      .subscribe(r => { this.dashboardService.myFavorites = r; })
+      .subscribe(r => { this.dashboardService.myFavorites = r; });
   }
 
   addToMyFavorites(book) {

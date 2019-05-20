@@ -51,13 +51,11 @@ export class AuthService {
         this.user.role = 'user';
         // Add to Local Storage
         localStorage.setItem('currentUser', JSON.stringify(this.user));
-        // Add to Firebase Database if its not exists 
+        // Add to Firebase Database if its not exists
         this.firebaseService.addUser(this.user);
-        // Redirect to based on requested url when authentication success 
+        // Redirect to based on requested url when authentication success
         console.log('redirectUrl', this.redirectUrl);
-
         this.redirectUrl = this.redirectUrl || '/';
-        
         this.router.navigate([this.redirectUrl]);
       })
       .catch(e => console.log(e));

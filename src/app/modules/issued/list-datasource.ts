@@ -16,7 +16,7 @@ export class ListDataSource extends DataSource<Book> {
   constructor(
     private paginator: MatPaginator,
     private sort: MatSort,
-    private data: Book[]) {
+    public data: Book[]) {
     super();
   }
 

@@ -16,7 +16,7 @@ import { Book } from 'src/app/models/book.model';
 export class CartComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  dataSource: ListDataSource;
+  public dataSource: ListDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['action', 'title', 'author', 'smallThumbnail', 'categories'];

@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
     const url: string = state.url;
-    // Check the user is authorized to access this page else redirect to access denied page 
+    // Check the user is authorized to access this page else redirect to access denied page
     if (this.authService.isUserLoggedIn()) {
       const allowedRoles = next.data.allowedRoles;
       this.authService.isAuthorized({ allowedRoles, url });
@@ -42,7 +42,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
     // Store the attempted URL for redirecting
     this.authService.redirectUrl = url;
-    
     // Navigate to the login page with extras
     this.router.navigate(['/login']);
     return false;

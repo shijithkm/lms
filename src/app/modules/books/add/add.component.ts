@@ -95,7 +95,7 @@ export class AddComponent implements OnInit {
       })
       .catch(e => {
         this.globalService.openSnackBar('Error, Please try after sometime!', 'OK');
-      })
+      });
   }
 
   updateBook() {
