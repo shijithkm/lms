@@ -24,7 +24,9 @@ export class FirebaseService {
     this.favorites = this.db.list('favorites');
     this.issued = this.db.list('issued');
     this.cart = this.db.list('cart');
-    this.userId = JSON.parse(localStorage.currentUser).id;
+    if (localStorage.currentUser) {
+      this.userId = JSON.parse(localStorage.currentUser).id;
+    }
     this.returnedDays = 5;
   }
   public getBooks() {

@@ -10,7 +10,9 @@ export class DashboardService {
   userId: string;
   title: string;
   constructor() {
-    this.userId = JSON.parse(localStorage.currentUser).id;
+    if (localStorage.currentUser) {
+      this.userId = JSON.parse(localStorage.currentUser).id;
+    }
   }
 
   addToCart(book) {

@@ -3,14 +3,14 @@
     <mat-card class="card" *ngFor="let book of books">
       <mat-card-header>
         <mat-card-title>
-          <h3>{{ book.title }}</h3>
+          {{ book.title }}
         </mat-card-title>
         <mat-card-subtitle>
-          <h4>{{ book.author }}</h4>
+          {{ book.author }}
         </mat-card-subtitle>
       </mat-card-header>
       <span></span>
-      <img mat-card-image src="{{ book.smallThumbnail }}" alt="Photo of a Shiba Inu">
+      <img width="200px" mat-card-image src="{{ book.smallThumbnail }}" alt="Photo of a Shiba Inu">
       <mat-card-content>
         <p>
           {{ (book.description.length > 250)? (book.description | slice:0:250)+'..':(book.description) }}
