@@ -2,17 +2,17 @@
   <div class="card-container" fxLayoutGap="10px" fxLayout="row wrap" fxLayoutAlign="start start">
     <mat-card class="card" *ngFor="let book of books">
       <mat-card-header>
-        <mat-card-title>
-          {{ book.title }}
-        </mat-card-title>
-        <mat-card-subtitle>
-          {{ book.author }}
-        </mat-card-subtitle>
+        <div fxflex="100" fxLayout="column" fxLayoutAlign="space-around stretch">
+          <div>
+            <mat-card-title>{{ book.title }}</mat-card-title>
+            <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+          </div>
+          <div fxLayoutAlign="center center"><img src="{{ book.smallThumbnail }}" alt="Book Image"></div>
+        </div>
       </mat-card-header>
-      <span></span>
-      <img width="200px" mat-card-image src="{{ book.smallThumbnail }}" alt="Photo of a Shiba Inu">
+      <br>
       <mat-card-content>
-        <p>
+        <p class="description">
           {{ (book.description.length > 250)? (book.description | slice:0:250)+'..':(book.description) }}
         </p>
       </mat-card-content>
