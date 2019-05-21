@@ -240,4 +240,12 @@ export class FirebaseService {
       )
     );
   }
+
+  getAllIssuedBooks() {
+    return this.issued.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    );
+  }
 }

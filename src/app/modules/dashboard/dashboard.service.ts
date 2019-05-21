@@ -43,7 +43,8 @@ export class DashboardService {
 
   isBookAddedToMyFavorites(book) {
     const result = this.myFavorites.find(obj => {
-      return (obj.key === book.key && obj.userId === JSON.parse(localStorage.currentUser).id);
+      const userId = localStorage.currentUser ? (JSON.parse(localStorage.currentUser).id) : null;
+      return (obj.key === book.key && obj.userId === userId);
     });
     return result;
   }

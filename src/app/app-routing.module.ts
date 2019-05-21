@@ -16,7 +16,7 @@ const routes: Routes = [
     component: LayoutComponent,
     canActivate: [AuthGuard], // Guarding child routes
     data: {
-      allowedRoles: ['user'],
+      allowedRoles: ['user','admin'],
     },
     children: [
       {
@@ -51,7 +51,7 @@ const routes: Routes = [
     component: LayoutComponent,
     canActivate: [AuthGuard], // Guarding child routes
     data: {
-      allowedRoles: ['admin', 'user'],
+      allowedRoles: ['admin'],
     },
     children: [
       {
@@ -59,7 +59,7 @@ const routes: Routes = [
         loadChildren: './modules/books/books.module#BooksModule',
         data: {
           title: 'Manage Books',
-          allowedRoles: ['admin', 'user'],
+          allowedRoles: ['admin'],
         },
       },
       {
@@ -67,8 +67,16 @@ const routes: Routes = [
         loadChildren: './modules/books/books.module#BooksModule',
         data: {
           title: 'Manage Users',
-          allowedRoles: ['admin', 'user'],
+          allowedRoles: ['admin'],
         },
+      },
+      {
+        path: 'issued',
+        loadChildren: './modules/issued-admin/issued-admin.module#IssuedAdminModule',
+        data: {
+          title: 'Issused Books',
+          allowedRoles: ['admin'],
+        }
       }
     ]
   },
