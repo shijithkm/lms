@@ -45,18 +45,22 @@ export class AuthService {
 
   signInWithGoogle(): void {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
-      .then((user) => {
+      .then(async (user) => {
         this.user = user;
         // Default role assigned to the user
         this.user.role = 'user';
-        // Add to Local Storage
-        localStorage.setItem('currentUser', JSON.stringify(this.user));
         // Add to Firebase Database if its not exists
-        this.firebaseService.addUser(this.user);
-        // Redirect to based on requested url when authentication success
-        console.log('redirectUrl', this.redirectUrl);
-        this.redirectUrl = this.redirectUrl || '/';
-        this.router.navigate([this.redirectUrl]);
+        await this.firebaseService.addUser(this.user).then(userObj => {
+          // Add to Local Storage
+          localStorage.setItem('currentUser', JSON.stringify(userObj));
+          // Redirect to based on requested url when authentication success
+          this.redirectUrl = this.redirectUrl || '/';
+          console.log('redirectUrl', this.redirectUrl);
+          this.router.navigate([this.redirectUrl]);
+        });
+
+        return true;
+
       })
       .catch(e => console.log(e));
   }

@@ -5,9 +5,18 @@
 .card {
   margin: 1rem;
   width: 250px;
+  min-height: 450px;
 }
 .description {
   font-weight: 300;
   font-size: smaller;
   line-height: 1.5;
+  height: 100px;
+}
+.mat-card-header .mat-card-title {
+  font-size: 12px;
+}
+.mat-card-header .mat-card-subtitle {
+  font-size: 12px;
+  font-weight: 400;
 }

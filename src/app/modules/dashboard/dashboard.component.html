@@ -1,7 +1,7 @@
 <div class="main-container" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="center start">
   <div class="card-container" fxLayoutGap="10px" fxLayout="row wrap" fxLayoutAlign="start start">
-    <mat-card class="card" *ngFor="let book of books">
-      <mat-card-header>
+    <mat-card class="card" fxLayout="column" fxLayoutAlign="space-between stretch" *ngFor="let book of books">
+      <mat-card-header fxLayout="column">
         <div fxflex="100" fxLayout="column" fxLayoutAlign="space-around stretch">
           <div>
             <mat-card-title>{{ book.title }}</mat-card-title>

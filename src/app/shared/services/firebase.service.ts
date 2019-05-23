@@ -106,12 +106,22 @@ export class FirebaseService {
     });
   }
 
-  addUser(user: User) {
-    // check user already exists and add
-    this.usersList.query.orderByChild('id').equalTo(user.id).on('value', (snapshot) => {
-      if (snapshot.val() === null) {
-        this.usersList.push(user);
-      }
+  async addUser(user: User) {
+
+    return new Promise((resolve, reject) => {
+      this.usersList.query.orderByChild('id')
+        .equalTo(user.id)
+        .on('value', (snapshot) => {
+          const userObj = snapshot.val();
+          if (userObj === null) {
+            this.usersList.push(user);
+            resolve(user);
+          } else {
+            const userData: any = Object.values(userObj);
+            user.role = userData[0].role;
+            resolve(user);
+          }
+        });
     });
 
   }
