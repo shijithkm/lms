@@ -20,18 +20,13 @@
 
       <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
         <span>{{ dashboardService.title }}</span>
-        <span>
-          <button mat-icon-button>
-            <mat-icon aria-label="Filter">filter_list</mat-icon>
-          </button>
+        <span fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+          <h6 fxHide.xs>Welcome {{ user.name }}</h6>
           <button mat-icon-button routerLink="/cart">
             <mat-icon matBadge="{{ dashboardService.cart.length }}" matBadgeColor="warn" aria-label="Shopping Cart">
               shopping_cart</mat-icon>
           </button>
-          <button mat-icon-button (click)="this.authService.signOut()">
-            <mat-icon matTooltip="Logout" aria-label="Logout">
-              power_settings_new</mat-icon>
-          </button>
+          <img class="profile-pic" [src]="user.photoUrl">
         </span>
       </div>
 

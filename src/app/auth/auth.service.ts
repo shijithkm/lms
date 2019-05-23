@@ -101,4 +101,10 @@ export class AuthService {
       return JSON.parse(localStorage.getItem('currentUser')).idToken;
     }
   }
+
+  getCurrentUser() {
+    if (localStorage.getItem('currentUser')) {
+      return JSON.parse(localStorage.getItem('currentUser'));
+    }
+  }
 }

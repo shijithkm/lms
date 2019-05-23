@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { DashboardService } from '../modules/dashboard/dashboard.service';
 import { GlobalService } from '../shared/services/global.service';
+import {  } from '../models/user.model';
 
 @Component({
   selector: 'app-layout',
@@ -19,6 +20,7 @@ export class LayoutComponent implements OnInit {
     );
 
   title: string;
+  user: any;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -29,6 +31,9 @@ export class LayoutComponent implements OnInit {
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.user = this.authService.getCurrentUser();
+    console.log(this.user);
+  }
 
 }
