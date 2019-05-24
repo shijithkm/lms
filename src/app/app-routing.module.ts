@@ -16,7 +16,7 @@ const routes: Routes = [
     component: LayoutComponent,
     canActivate: [AuthGuard], // Guarding child routes
     data: {
-      allowedRoles: ['user','admin'],
+      allowedRoles: ['user', 'admin'],
     },
     children: [
       {
