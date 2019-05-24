@@ -16,7 +16,7 @@ export class IssuedAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public dataSource: ListDataSource;
-
+  public issuedBooks: any[];
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['title', 'smallThumbnail', 'author', 'userId', 'issuedDate', 'returnedDate', 'status'];
   issedBooks: any[] = [];
@@ -37,9 +37,21 @@ export class IssuedAdminComponent implements OnInit {
   listIssuedBooks() {
     this.firebaseService.getAllIssuedBooks()
       .subscribe((data) => {
-        console.log(data);
+        this.issuedBooks = data;
         this.dataSource = new ListDataSource(this.paginator, this.sort, data);
       });
+  }
+
+  applyFilter(filterValue: string) {
+    const q = filterValue.trim().toLowerCase();
+    const data: any[] = this.dataSource.data.filter((item) => {
+      return q ? (item.title.toLocaleLowerCase().indexOf(q) > -1 || item.author.toLocaleLowerCase().indexOf(q) > -1) : true;
+    });
+    if (data.length > 0) {
+      this.dataSource = new ListDataSource(this.paginator, this.sort, data);
+    } else {
+      this.dataSource = new ListDataSource(this.paginator, this.sort, this.issuedBooks);
+    }
   }
 }
 

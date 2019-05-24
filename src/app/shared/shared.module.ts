@@ -11,8 +11,9 @@ import { environment } from '../../environments/environment';
 import { GoogleLoginProvider, LoginOpt } from 'angularx-social-login';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { GlobalService } from './services/global.service';
+import { GrdFilterPipe } from './pipes/grid-filter.pipe';
 
 const googleLoginOptions: LoginOpt = {
   scope: 'profile email'
@@ -31,7 +32,7 @@ export function provideConfig() {
 }
 
 @NgModule({
-  declarations: [],
+  declarations: [GrdFilterPipe],
   imports: [
     // CommonModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -41,13 +42,16 @@ export function provideConfig() {
     MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
+    GrdFilterPipe,
     // CommonModule,
     AngularFireDatabaseModule,
     FlexLayoutModule,
     MaterialModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     FirebaseService,

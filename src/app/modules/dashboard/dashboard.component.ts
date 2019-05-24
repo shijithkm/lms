@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   books;
+  public searchText: string;
 
   constructor(
     public firebaseService: FirebaseService,

@@ -1,4 +1,9 @@
 <div class="mat-elevation-z8">
+
+  <mat-form-field class="filter">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by Book Title, Author">
+  </mat-form-field>
+
   <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
 
     <!-- Title Column -->

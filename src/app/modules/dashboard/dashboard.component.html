@@ -1,40 +1,54 @@
 <div class="main-container" fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="center start">
-  <div class="card-container" fxLayoutGap="10px" fxLayout="row wrap" fxLayoutAlign="start start">
-    <mat-card class="card" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="space-between stretch" *ngFor="let book of books">
-      <mat-card-header fxLayout="column">
-        <div fxflex="100" fxLayout="column" fxLayoutAlign="space-around stretch">
-          <div>
-            <mat-card-title>{{ book.title }}</mat-card-title>
-            <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
-          </div>
-          <div fxLayoutAlign="center center"><img src="{{ book.smallThumbnail }}" alt="Book Image"></div>
-        </div>
-      </mat-card-header>
-      <br>
-      <mat-card-content>
-        <p class="description">
-          {{ (book.description.length > 250)? (book.description | slice:0:250)+'..':(book.description) }}
-        </p>
-      </mat-card-content>
-      <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
-        <button mat-icon-button *ngIf="!dashboardService.isBookAddedToMyFavorites(book)"
-          (click)="addToMyFavorites(book)" matTooltip="Mark as Favorite">
-          <mat-icon>favorite_border</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" *ngIf="dashboardService.isBookAddedToMyFavorites(book)"
-          (click)="removeMyFavorites(book)" matTooltip="My Favorite Book">
-          <mat-icon>favorite</mat-icon>
-        </button>
-        <span *ngIf="book.availableBooks > 0">
-          <button mat-raised-button color="warn" *ngIf="!dashboardService.isBookAddedToCart(book)"
-            (click)="addToCart(book)">Add to Cart</button>
-          <button mat-raised-button color="primary" *ngIf="dashboardService.isBookAddedToCart(book)">Added to
-            Cart</button>
-        </span>
-        <span *ngIf="book.availableBooks === 0">
-          <button mat-raised-button color="accent">Out of Stock</button>
-        </span>
-      </mat-card-actions>
-    </mat-card>
+
+  <div fxFlex="100" fxLayoutGap="10px" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div fxFlex="100">
+      <mat-form-field>
+        <input matInput [(ngModel)]="searchText" placeholder="Filter by Title, Author">
+      </mat-form-field>
+    </div>
+    <div>
+      <div class="card-container" fxLayoutGap="10px" fxLayout="row wrap" fxLayoutAlign="start start">
+        <mat-card class="card" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="space-between stretch"
+          *ngFor="let book of books| grdFilter: {title: searchText, author:searchText}">
+          <mat-card-header fxLayout="column">
+            <div fxflex="100" fxLayout="column" fxLayoutAlign="space-around stretch">
+              <div>
+                <mat-card-title>{{ book.title }}</mat-card-title>
+                <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+              </div>
+              <div fxLayoutAlign="center center"><img src="{{ book.smallThumbnail }}" alt="Book Image"></div>
+            </div>
+          </mat-card-header>
+          <br>
+          <mat-card-content>
+            <p class="description">
+              {{ (book.description.length > 250)? (book.description | slice:0:250)+'..':(book.description) }}
+            </p>
+          </mat-card-content>
+          <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-icon-button *ngIf="!dashboardService.isBookAddedToMyFavorites(book)"
+              (click)="addToMyFavorites(book)" matTooltip="Mark as Favorite">
+              <mat-icon>favorite_border</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" *ngIf="dashboardService.isBookAddedToMyFavorites(book)"
+              (click)="removeMyFavorites(book)" matTooltip="My Favorite Book">
+              <mat-icon>favorite</mat-icon>
+            </button>
+            <span *ngIf="book.availableBooks > 0">
+              <button mat-raised-button color="warn" *ngIf="!dashboardService.isBookAddedToCart(book)"
+                (click)="addToCart(book)">Add to Cart</button>
+              <button mat-raised-button color="primary" *ngIf="dashboardService.isBookAddedToCart(book)">Added to
+                Cart</button>
+            </span>
+            <span *ngIf="book.availableBooks === 0">
+              <button mat-raised-button color="accent">Out of Stock</button>
+            </span>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+    </div>
   </div>
+
+
 </div>
